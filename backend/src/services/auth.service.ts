@@ -24,7 +24,9 @@ export class AuthService {
         lastName: input.lastName,
         email: input.email,
         password: passwordHash,
-        role: "CUSTOMER"
+        role: "CUSTOMER",
+        isBanned: false,
+        deletedAt: null
       },
       select: {
         id: true,
@@ -33,6 +35,8 @@ export class AuthService {
         email: true,
         phone: true,
         role: true,
+        isBanned: true,
+        deletedAt: true,
         createdAt: true,
         updatedAt: true
       }
@@ -45,6 +49,9 @@ export class AuthService {
   static async login(email: string, password: string) {
     const userWithPassword = await prisma.user.findUnique({ where: { email } });
     if (!userWithPassword) return { ok: false as const, message: "Invalid credentials" };
+    if (userWithPassword.deletedAt) return { ok: false as const, message: "Invalid credentials" };
+    const banned = (userWithPassword as unknown as { isBanned?: boolean }).isBanned;
+    if (banned) return { ok: false as const, message: "Invalid credentials" };
 
     const ok = await bcrypt.compare(password, userWithPassword.password);
     if (!ok) return { ok: false as const, message: "Invalid credentials" };
@@ -58,6 +65,8 @@ export class AuthService {
         email: true,
         phone: true,
         role: true,
+        isBanned: true,
+        deletedAt: true,
         createdAt: true,
         updatedAt: true
       }

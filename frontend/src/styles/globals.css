@@ -2,12 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  height: 100%;
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-slate-50 font-sans text-slate-900 antialiased;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #bacce3 #f1f5f9;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border: 2px solid #f1f5f9;
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: #f1f5f9;
+  }
 }
 
-body {
-  @apply bg-slate-100 text-slate-900;
-}
+@layer components {
+  .heading-1 {
+    @apply text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl;
+  }
 
+  .heading-2 {
+    @apply text-2xl font-bold tracking-tight text-slate-900;
+  }
+
+  .heading-3 {
+    @apply text-lg font-semibold text-slate-800;
+  }
+
+  .body-text {
+    @apply text-sm leading-relaxed text-slate-600 sm:text-base;
+  }
+
+  .label-text {
+    @apply text-sm font-medium text-slate-700;
+  }
+
+  .input-base {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition-all duration-150 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20;
+  }
+
+  .input-error {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-500/20;
+  }
+
+  .card-base {
+    @apply rounded-2xl border border-slate-100 bg-white shadow-card;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover;
+  }
+}

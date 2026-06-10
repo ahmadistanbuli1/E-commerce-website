@@ -42,6 +42,8 @@ async function main() {
 
   const byName = new Map(allCategories.map((c) => [c.name, c.id]));
 
+  const picsum = (seed: number) => `https://picsum.photos/seed/${seed}/600/400`;
+
   await prisma.product.createMany({
     data: [
       {
@@ -50,7 +52,7 @@ async function main() {
         description: "Noise-cancelling wireless headphones",
         price: "149.99",
         stock: 25,
-        imageUrl: "https://via.placeholder.com/600x400?text=Headphones",
+        imageUrl: picsum(101),
         isActive: true
       },
       {
@@ -59,7 +61,7 @@ async function main() {
         description: "Fitness tracking smart watch",
         price: "89.99",
         stock: 40,
-        imageUrl: "https://via.placeholder.com/600x400?text=Smart+Watch",
+        imageUrl: picsum(102),
         isActive: true
       },
       {
@@ -68,7 +70,7 @@ async function main() {
         description: "100% cotton t-shirt",
         price: "19.99",
         stock: 120,
-        imageUrl: "https://via.placeholder.com/600x400?text=T-Shirt",
+        imageUrl: picsum(103),
         isActive: true
       },
       {
@@ -77,11 +79,17 @@ async function main() {
         description: "Automatic coffee maker",
         price: "59.99",
         stock: 15,
-        imageUrl: "https://via.placeholder.com/600x400?text=Coffee+Maker",
+        imageUrl: picsum(104),
         isActive: true
       }
     ],
     skipDuplicates: true
+  });
+
+  // Update existing seeded products if they were created earlier with via.placeholder.com
+  await prisma.product.updateMany({
+    where: { imageUrl: { contains: "via.placeholder.com" } },
+    data: { imageUrl: picsum(999) }
   });
 
   // eslint-disable-next-line no-console

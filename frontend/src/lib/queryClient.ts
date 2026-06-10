@@ -1,4 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
+import { setCsrfToken } from "./csrf";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -9,6 +10,7 @@ export const queryClient = new QueryClient({
 });
 
 export function clearAuthSession() {
+  setCsrfToken(null);
   queryClient.setQueryData(["me"], undefined);
   queryClient.removeQueries({ queryKey: ["me"] });
   queryClient.removeQueries({ queryKey: ["cart"] });

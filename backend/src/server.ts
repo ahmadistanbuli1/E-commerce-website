@@ -8,6 +8,8 @@ async function main() {
   const server = app.listen(env.PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`[backend] ${env.NODE_ENV} — listening on port ${env.PORT}`);
+    // eslint-disable-next-line no-console
+    console.log(`[backend] allowed CORS origins: ${env.corsOrigins.join(", ") || "(none)"}`);
   });
 
   async function shutdown(signal: string) {

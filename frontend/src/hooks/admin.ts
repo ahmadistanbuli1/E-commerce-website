@@ -218,7 +218,6 @@ export function useUploadProductImage() {
         "/admin/uploads/product-image",
         formData,
         {
-          headers: { "Content-Type": "multipart/form-data" },
           params: input.previousUrl ? { previousUrl: input.previousUrl } : undefined
         }
       );

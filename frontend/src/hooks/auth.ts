@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { api } from "../config/api";
+import { setCsrfToken } from "../lib/csrf";
 import { clearAuthSession } from "../lib/queryClient";
 import { toastSuccess } from "../lib/toast";
 
@@ -18,6 +19,12 @@ type MeResponse = {
 
 export async function fetchCurrentUser(): Promise<AuthUser | null> {
   const { data } = await api.get<MeResponse>("/auth/me");
+  if (data.user) {
+    const csrf = await api.get<{ csrfToken: string | null }>("/auth/csrf");
+    if (csrf.data.csrfToken) {
+      setCsrfToken(csrf.data.csrfToken);
+    }
+  }
   return data.user;
 }
 

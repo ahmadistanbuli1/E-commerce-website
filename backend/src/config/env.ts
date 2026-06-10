@@ -74,7 +74,10 @@ const envSchema = z
 const parsed = envSchema.parse(process.env);
 
 function normalizeOrigin(origin: string) {
-  return origin.trim().replace(/\/+$/, "");
+  return origin
+    .trim()
+    .replace(/^['"]|['"]$/g, "")
+    .replace(/\/+$/, "");
 }
 
 export const env = {

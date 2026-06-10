@@ -1,5 +1,5 @@
 import cors from "cors";
-import { isAllowedCorsOrigin } from "../config/env";
+import { env, isAllowedCorsOrigin } from "../config/env";
 
 export const corsMiddleware = cors({
   origin(origin, callback) {
@@ -13,6 +13,10 @@ export const corsMiddleware = cors({
       return;
     }
 
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[cors] blocked origin: ${origin} | allowed: ${env.corsOrigins.join(", ") || "(none)"}`
+    );
     callback(new Error(`Origin ${origin} is not allowed by CORS`));
   },
   credentials: true,

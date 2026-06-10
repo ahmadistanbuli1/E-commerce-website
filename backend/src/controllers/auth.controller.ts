@@ -8,6 +8,9 @@ import { prisma } from "../config/prisma";
 import { activityActorFromRequest } from "../utils/request-context";
 import { clearSessionCookies, setSessionCookies } from "../utils/auth-cookies";
 import { signAccessToken } from "../utils/auth";
+import { baseCookieOptions } from "../utils/cookie-options";
+import { generateCsrfToken } from "../utils/csrf";
+import { REFRESH_TOKEN_MAX_AGE_MS } from "../config/auth";
 
 const emptyMsg = "This field is required";
 
@@ -42,7 +45,7 @@ export class AuthController {
     const result = await AuthService.register(parsed.data);
     if (!result.ok) return res.status(409).json({ message: result.message });
 
-    setSessionCookies(res, {
+    const csrfToken = setSessionCookies(res, {
       accessToken: result.accessToken,
       refreshToken: result.refreshToken
     });
@@ -58,7 +61,7 @@ export class AuthController {
       { entityType: "User", entityId: result.user.id }
     );
 
-    return res.status(201).json({ user: result.user });
+    return res.status(201).json({ user: result.user, csrfToken });
   }
 
   static async login(req: Request, res: Response) {
@@ -73,7 +76,7 @@ export class AuthController {
     const result = await AuthService.login(parsed.data.email, parsed.data.password);
     if (!result.ok) return res.status(401).json({ message: result.message });
 
-    setSessionCookies(res, {
+    const csrfToken = setSessionCookies(res, {
       accessToken: result.accessToken,
       refreshToken: result.refreshToken
     });
@@ -89,7 +92,7 @@ export class AuthController {
       { entityType: "User", entityId: result.user.id }
     );
 
-    return res.status(200).json({ user: result.user });
+    return res.status(200).json({ user: result.user, csrfToken });
   }
 
   static async refresh(req: Request, res: Response) {
@@ -105,12 +108,23 @@ export class AuthController {
     }
 
     const accessToken = signAccessToken({ sub: result.userId, role: result.role });
-    setSessionCookies(res, {
+    const csrfToken = setSessionCookies(res, {
       accessToken,
       refreshToken: result.refreshToken
     });
 
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true, csrfToken });
+  }
+
+  static async issueCsrf(req: Request, res: Response) {
+    if (!req.user) {
+      return res.json({ csrfToken: null });
+    }
+
+    const csrfToken = generateCsrfToken();
+    res.cookie(env.CSRF_COOKIE_NAME, csrfToken, baseCookieOptions(REFRESH_TOKEN_MAX_AGE_MS));
+
+    return res.json({ csrfToken });
   }
 
   static async me(req: Request, res: Response) {

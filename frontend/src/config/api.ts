@@ -1,5 +1,6 @@
 import axios, { type InternalAxiosRequestConfig } from "axios";
 import { clearAuthSession } from "../lib/queryClient";
+import { getCsrfToken, setCsrfToken } from "../lib/csrf";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:4000/api",
@@ -8,15 +9,6 @@ export const api = axios.create({
 
 const AUTH_SESSION_CHECK_PATHS = ["/auth/me"];
 const AUTH_PUBLIC_PATHS = ["/auth/login", "/auth/register", "/auth/refresh"];
-
-function getCookieValue(name: string) {
-  const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]) : null;
-}
-
-function getCsrfToken() {
-  return getCookieValue("csrf_token");
-}
 
 function isAuthSessionCheck(url: string) {
   return AUTH_SESSION_CHECK_PATHS.some((path) => url.includes(path));
@@ -28,6 +20,15 @@ function isAuthPublicPath(url: string) {
 
 function isMutatingMethod(method: string | undefined) {
   return ["post", "put", "patch", "delete"].includes((method ?? "get").toLowerCase());
+}
+
+function captureCsrfFromResponse(data: unknown) {
+  if (data && typeof data === "object" && "csrfToken" in data) {
+    const token = (data as { csrfToken?: unknown }).csrfToken;
+    if (typeof token === "string" && token.length > 0) {
+      setCsrfToken(token);
+    }
+  }
 }
 
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -46,7 +47,9 @@ async function refreshSession() {
   if (!refreshPromise) {
     refreshPromise = api
       .post("/auth/refresh")
-      .then(() => undefined)
+      .then((response) => {
+        captureCsrfFromResponse(response.data);
+      })
       .finally(() => {
         refreshPromise = null;
       });
@@ -55,11 +58,27 @@ async function refreshSession() {
 }
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    captureCsrfFromResponse(response.data);
+    return response;
+  },
   async (error) => {
     const status = error.response?.status;
     const url: string = error.config?.url ?? "";
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+    if (status === 403 && originalRequest && !originalRequest._retry && error.response?.data?.message === "Invalid CSRF token") {
+      originalRequest._retry = true;
+      try {
+        const { data } = await api.get<{ csrfToken: string | null }>("/auth/csrf");
+        if (data.csrfToken) {
+          setCsrfToken(data.csrfToken);
+          return api(originalRequest);
+        }
+      } catch {
+        // fall through
+      }
+    }
 
     if (status === 401 && originalRequest && !originalRequest._retry && !isAuthPublicPath(url)) {
       originalRequest._retry = true;

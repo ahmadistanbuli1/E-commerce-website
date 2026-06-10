@@ -8,5 +8,6 @@ export const authRoutes = Router();
 authRoutes.post("/register", authRateLimiter, AuthController.register);
 authRoutes.post("/login", authRateLimiter, AuthController.login);
 authRoutes.post("/refresh", authRateLimiter, AuthController.refresh);
+authRoutes.get("/csrf", attachUserIfPresent, AuthController.issueCsrf);
 authRoutes.get("/me", attachUserIfPresent, AuthController.me);
 authRoutes.post("/logout", AuthController.logout);

@@ -49,22 +49,17 @@ export function ProductEditDialog({
   const [stock, setStock] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
   const [isActive, setIsActive] = useState(true);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (open && product) {
-      const form = getFormState(product);
-      setCategoryId(form.categoryId);
-      setName(form.name);
-      setDescription(form.description);
-      setPrice(form.price);
-      setStock(form.stock);
-      setImageUrl(form.imageUrl);
-      setIsActive(form.isActive);
-      setReady(true);
-    } else if (!open) {
-      setReady(false);
-    }
+    if (!open || !product) return;
+    const form = getFormState(product);
+    setCategoryId(form.categoryId);
+    setName(form.name);
+    setDescription(form.description);
+    setPrice(form.price);
+    setStock(form.stock);
+    setImageUrl(form.imageUrl);
+    setIsActive(form.isActive);
   }, [open, product]);
 
   const canSave =
@@ -84,7 +79,7 @@ export function ProductEditDialog({
             Cancel
           </Button>
           <Button
-            disabled={!canSave || isPending || !ready}
+            disabled={!canSave || isPending || !product}
             onClick={() =>
               onSave({
                 categoryId,
@@ -102,7 +97,7 @@ export function ProductEditDialog({
         </>
       }
     >
-      {ready && product ? (
+      {product ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <AdminMenuSelect
@@ -132,21 +127,17 @@ export function ProductEditDialog({
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-          <label className="flex items-center gap-2 text-sm text-slate-700 sm:col-span-2">
+          <label className="flex items-center gap-2 text-sm text-foreground/80 sm:col-span-2">
             <input
               type="checkbox"
               checked={isActive}
               onChange={(e) => setIsActive(e.target.checked)}
-              className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+              className="rounded border-border text-primary focus:ring-ring"
             />
             Product is active (visible in store)
           </label>
         </div>
-      ) : (
-        <div className="flex h-48 items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-blue-600" />
-        </div>
-      )}
+      ) : null}
     </AdminDialog>
   );
 }

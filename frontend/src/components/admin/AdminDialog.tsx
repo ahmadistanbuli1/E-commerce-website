@@ -34,7 +34,7 @@ export function AdminDialog({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" aria-hidden="true" />
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm dark:bg-black/60" aria-hidden="true" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -51,15 +51,15 @@ export function AdminDialog({
               <Dialog.Panel
                 key={dialogKey}
                 className={cn(
-                  "w-full rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl will-change-transform",
+                  "w-full rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-2xl will-change-transform dark:shadow-black/40",
                   size === "lg" ? "max-w-2xl" : "max-w-lg"
                 )}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <Dialog.Title className="text-lg font-bold text-slate-900">{title}</Dialog.Title>
+                    <Dialog.Title className="text-lg font-bold text-foreground">{title}</Dialog.Title>
                     {description ? (
-                      <Dialog.Description className="mt-1 text-sm text-slate-500">
+                      <Dialog.Description className="mt-1 text-sm text-muted-foreground">
                         {description}
                       </Dialog.Description>
                     ) : null}
@@ -67,7 +67,7 @@ export function AdminDialog({
                   <button
                     type="button"
                     onClick={onClose}
-                    className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+                    className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                     aria-label="Close"
                   >
                     <X className="h-5 w-5" />

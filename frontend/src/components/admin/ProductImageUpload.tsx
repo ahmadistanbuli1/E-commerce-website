@@ -74,7 +74,7 @@ export function ProductImageUpload({
 
   return (
     <div className="space-y-2">
-      <p className="text-sm font-medium text-slate-700">{label}</p>
+      <p className="text-sm font-medium text-foreground">{label}</p>
 
       <input
         ref={inputRef}
@@ -86,19 +86,19 @@ export function ProductImageUpload({
       />
 
       {value ? (
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-          <div className="relative aspect-[4/3] bg-white">
+        <div className="overflow-hidden rounded-2xl border border-border bg-muted">
+          <div className="relative aspect-[4/3] bg-card">
             <ProductImage
               src={value}
               alt="Product preview"
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-x-0 bottom-0 flex gap-2 bg-gradient-to-t from-slate-900/70 to-transparent p-3">
+            <div className="absolute inset-x-0 bottom-0 flex gap-2 bg-gradient-to-t from-black/70 to-transparent p-3">
               <button
                 type="button"
                 onClick={openPicker}
                 disabled={busy}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-white/95 px-3 py-2 text-sm font-medium text-slate-800 transition hover:bg-white disabled:opacity-60"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-card/95 px-3 py-2 text-sm font-medium text-foreground transition hover:bg-card disabled:opacity-60"
               >
                 {upload.isPending ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -111,14 +111,14 @@ export function ProductImageUpload({
                 type="button"
                 onClick={clearImage}
                 disabled={busy}
-                className="inline-flex items-center justify-center rounded-xl bg-white/95 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-white disabled:opacity-60"
+                className="inline-flex items-center justify-center rounded-xl bg-card/95 px-3 py-2 text-sm font-medium text-red-500 transition hover:bg-card disabled:opacity-60"
                 aria-label="Remove image"
               >
                 <Trash2 className="h-4 w-4" />
               </button>
             </div>
           </div>
-          <p className="truncate px-3 py-2 text-xs text-slate-500">{value}</p>
+          <p className="truncate px-3 py-2 text-xs text-muted-foreground">{value}</p>
         </div>
       ) : (
         <div
@@ -147,22 +147,22 @@ export function ProductImageUpload({
           className={cn(
             "group flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-10 text-center transition",
             dragActive
-              ? "border-blue-500 bg-blue-50/80"
-              : "border-slate-200 bg-slate-50/70 hover:border-blue-300 hover:bg-blue-50/40",
+              ? "border-primary bg-primary-light/50 dark:bg-primary/10"
+              : "border-border bg-muted/70 hover:border-primary/40 hover:bg-primary-light/30 dark:hover:bg-primary/5",
             busy && "cursor-not-allowed opacity-60"
           )}
         >
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition group-hover:scale-105">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-card shadow-sm ring-1 ring-border transition group-hover:scale-105">
             {upload.isPending ? (
               <Loader2 className="h-7 w-7 animate-spin text-blue-600" />
             ) : (
               <ImagePlus className="h-7 w-7 text-blue-600" />
             )}
           </div>
-          <p className="mt-4 text-sm font-semibold text-slate-800">
+          <p className="mt-4 text-sm font-semibold text-foreground">
             Click to upload or drag and drop
           </p>
-          <p className="mt-1 text-xs text-slate-500">JPG, PNG, WEBP, or GIF up to {formatFileSize(5 * 1024 * 1024)}</p>
+          <p className="mt-1 text-xs text-muted-foreground">JPG, PNG, WEBP, or GIF up to {formatFileSize(5 * 1024 * 1024)}</p>
         </div>
       )}
 

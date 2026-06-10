@@ -82,7 +82,7 @@ export function AdminUsersPage() {
                       <p className="font-medium">
                         {u.firstName} {u.lastName}
                       </p>
-                      <p className="text-xs text-slate-500">{u.email}</p>
+                      <p className="text-xs text-muted-foreground">{u.email}</p>
                     </div>
                   )
                 },

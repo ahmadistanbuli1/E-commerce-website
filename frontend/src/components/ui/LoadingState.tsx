@@ -5,14 +5,14 @@ import { Card } from "./Card";
 export function LoadingState({ message = "Loading..." }: { message?: string }) {
   return (
     <Card className="flex items-center justify-center gap-3 py-12">
-      <Loader2 className="h-5 w-5 animate-spin text-blue-600" />
-      <p className="text-sm text-slate-600">{message}</p>
+      <Loader2 className="h-5 w-5 animate-spin text-primary" />
+      <p className="text-sm text-muted-foreground">{message}</p>
     </Card>
   );
 }
 
 export function Skeleton({ className }: { className?: string }) {
-  return <div className={cn("animate-pulse rounded-xl bg-slate-100", className)} />;
+  return <div className={cn("animate-pulse rounded-xl bg-muted", className)} />;
 }
 
 export function TableSkeleton({ rows = 5 }: { rows?: number }) {

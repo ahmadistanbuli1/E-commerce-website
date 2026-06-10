@@ -5,10 +5,10 @@ import { AdminStatusBadge } from "./AdminStatusBadge";
 import { cn } from "../../utils/cn";
 
 const menuItemsClass =
-  "absolute z-30 mt-1 min-w-[10rem] origin-top-left rounded-xl border border-slate-100 bg-white p-1 shadow-lg focus:outline-none";
+  "absolute z-30 mt-1 min-w-[10rem] origin-top-left rounded-xl border border-border bg-card p-1 shadow-lg focus:outline-none dark:shadow-black/40";
 
 const menuButtonClass =
-  "inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-sm font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500/20";
+  "inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-2.5 py-1.5 text-sm font-medium text-foreground/80 shadow-sm transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring/25";
 
 function MenuOption({
   active,
@@ -27,8 +27,8 @@ function MenuOption({
       onClick={onClick}
       className={cn(
         "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm",
-        active ? "bg-slate-50 text-slate-900" : "text-slate-700",
-        selected && "font-semibold text-blue-700"
+        active ? "bg-muted text-foreground" : "text-foreground/80",
+        selected && "font-semibold text-primary"
       )}
     >
       {children}
@@ -51,9 +51,9 @@ export function UserRoleMenu({
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className={menuButtonClass}>
-        <UserCog className="h-4 w-4 text-slate-500" />
+        <UserCog className="h-4 w-4 text-muted-foreground" />
         <span>{role}</span>
-        <ChevronDown className="h-4 w-4 text-slate-400" />
+        <ChevronDown className="h-4 w-4 text-muted-foreground" />
       </Menu.Button>
 
       <Menu.Items className={menuItemsClass}>
@@ -87,9 +87,9 @@ export function UserStatusMenu({
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className={menuButtonClass}>
-        <Shield className="h-4 w-4 text-slate-500" />
+        <Shield className="h-4 w-4 text-muted-foreground" />
         <AdminStatusBadge status={status} />
-        <ChevronDown className="h-4 w-4 text-slate-400" />
+        <ChevronDown className="h-4 w-4 text-muted-foreground" />
       </Menu.Button>
 
       <Menu.Items className={menuItemsClass}>
@@ -116,16 +116,13 @@ export function UserActionsMenu({ onArchive }: { onArchive: () => void }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className={cn(menuButtonClass, "px-2")} aria-label="User actions">
-        <MoreHorizontal className="h-4 w-4 text-slate-500" />
+        <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
       </Menu.Button>
 
       <Menu.Items className={cn(menuItemsClass, "left-auto right-0 origin-top-right")}>
         <Menu.Item>
           {({ active }) => (
-            <MenuOption
-              active={active}
-              onClick={onArchive}
-            >
+            <MenuOption active={active} onClick={onArchive}>
               <Archive className="h-4 w-4 text-red-500" />
               Archive user
             </MenuOption>

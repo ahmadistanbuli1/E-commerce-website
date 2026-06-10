@@ -58,7 +58,7 @@ export function OrderStatusDialog({
       <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant={orderStatusVariant(order.status)}>{order.status}</Badge>
-          <span className="text-slate-400">→</span>
+          <span className="text-muted-foreground">→</span>
           <Badge variant={orderStatusVariant(nextStatus)}>{nextStatus}</Badge>
         </div>
 
@@ -73,7 +73,7 @@ export function OrderStatusDialog({
               : "Let the customer know what happens next (e.g. order approved, shipping soon)..."
           }
         />
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-muted-foreground">
           This message will be visible to the customer on their orders page.
         </p>
       </div>

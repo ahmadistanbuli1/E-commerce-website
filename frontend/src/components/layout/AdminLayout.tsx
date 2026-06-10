@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useMe, useLogoutAndRedirect } from "../../hooks/auth";
+import { ThemeToggle } from "../ui/ThemeToggle";
 
 const links = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
@@ -37,17 +38,17 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
 
   const sidebar = (
     <div className="flex h-full flex-col">
-      <div className="flex items-center gap-3 border-b border-slate-100 px-5 py-5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 shadow-lg shadow-blue-600/30">
-          <Store className="h-5 w-5 text-white" />
+      <div className="flex items-center gap-3 border-b border-border px-5 py-5">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/30">
+          <Store className="h-5 w-5 text-primary-foreground" />
         </div>
         <div>
-          <p className="text-sm font-bold text-slate-800">E-Commerce</p>
-          <p className="text-xs text-slate-500">Admin Panel</p>
+          <p className="text-sm font-bold text-foreground">E-Commerce</p>
+          <p className="text-xs text-muted-foreground">Admin Panel</p>
         </div>
         <button
           type="button"
-          className="ml-auto rounded-lg p-1 text-slate-500 lg:hidden"
+          className="ml-auto rounded-lg p-1 text-muted-foreground lg:hidden"
           onClick={() => setSidebarOpen(false)}
         >
           <X className="h-5 w-5" />
@@ -55,7 +56,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-        <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Main Menu
         </p>
         {links.map(({ to, label, icon: Icon, end }) => {
@@ -67,13 +68,13 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
               onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                 active
-                  ? "bg-blue-50 text-blue-700 shadow-sm"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-primary-light text-primary shadow-sm dark:bg-primary/15 dark:text-blue-300"
+                  : "text-foreground/70 hover:bg-muted hover:text-foreground"
               }`}
             >
               <span
                 className={`flex h-8 w-8 items-center justify-center rounded-lg ${
-                  active ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-500"
+                  active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -84,10 +85,10 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         })}
       </nav>
 
-      <div className="border-t border-slate-100 p-4">
+      <div className="border-t border-border p-4">
         <Link
           to="/products"
-          className="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors duration-200 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+          className="flex items-center justify-center rounded-xl border border-border bg-card px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors duration-200 hover:border-primary/30 hover:bg-primary-light hover:text-primary dark:hover:bg-primary/10"
         >
           Back to store
         </Link>
@@ -96,63 +97,60 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9]">
-      {/* Mobile overlay */}
+    <div className="min-h-screen bg-background">
       {sidebarOpen ? (
         <div
-          className="fixed inset-0 z-40 bg-slate-900/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden dark:bg-black/70"
           onClick={() => setSidebarOpen(false)}
         />
       ) : null}
 
-      {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-slate-200 bg-white shadow-xl transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-card shadow-xl transition-transform duration-300 lg:translate-x-0 dark:shadow-black/40 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {sidebar}
       </aside>
 
-      {/* Main area */}
       <div className="lg:pl-64">
-        {/* Top bar */}
-        <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur-md">
+        <header className="sticky top-0 z-30 border-b border-border bg-card/90 backdrop-blur-md">
           <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-6">
             <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => setSidebarOpen(true)}
-                className="rounded-lg bg-blue-600 p-2 text-white shadow-md shadow-blue-600/30 transition-colors hover:bg-blue-700 lg:hidden"
+                className="rounded-lg bg-primary p-2 text-primary-foreground shadow-md shadow-primary/30 transition-colors hover:bg-primary-hover lg:hidden"
               >
                 <Menu className="h-5 w-5" />
               </button>
               <div className="relative hidden sm:block">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <input
-                  className="w-64 rounded-xl border border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 lg:w-80"
+                  className="w-64 rounded-xl border border-border bg-muted py-2 pl-10 pr-4 text-sm text-foreground outline-none transition-all duration-200 focus:border-primary focus:bg-card focus:ring-2 focus:ring-ring/25 lg:w-80"
                   placeholder="Search..."
                 />
               </div>
             </div>
 
             <div className="flex items-center gap-3">
+              <ThemeToggle compact />
               <AdminNotificationsBell />
 
-              <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-1.5">
+              <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-3 py-1.5">
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-sm font-bold text-white">
                   {me.data?.firstName?.[0] ?? "A"}
                 </div>
                 <div className="hidden sm:block">
-                  <p className="text-sm font-semibold text-slate-800">
+                  <p className="text-sm font-semibold text-foreground">
                     {me.data ? `${me.data.firstName} ${me.data.lastName}` : "Admin"}
                   </p>
-                  <p className="text-xs text-slate-500">{me.data?.role ?? "ADMIN"}</p>
+                  <p className="text-xs text-muted-foreground">{me.data?.role ?? "ADMIN"}</p>
                 </div>
                 <button
                   type="button"
                   onClick={logoutAndRedirect}
-                  className="ml-1 hidden rounded-lg px-2 py-1 text-xs font-medium text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-800 md:block"
+                  className="ml-1 hidden rounded-lg px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:block"
                 >
                   Logout
                 </button>

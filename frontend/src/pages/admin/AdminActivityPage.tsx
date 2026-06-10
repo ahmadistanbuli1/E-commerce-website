@@ -24,7 +24,9 @@ export function AdminActivityPage() {
   return (
     <AdminLayout>
       <AdminPageHeader title="Activity log" />
-      <p className="mb-6 text-sm text-slate-600">Full audit trail of actions across the platform.</p>
+      <p className="mb-6 text-sm text-muted-foreground">
+        Full audit trail of actions across the platform.
+      </p>
 
       {logsQuery.isLoading ? (
         <LoadingState message="Loading activity logs..." />
@@ -41,37 +43,41 @@ export function AdminActivityPage() {
           <Card padding="none" className="overflow-hidden">
             <div className="overflow-x-auto">
               <table className="min-w-full text-sm">
-                <thead className="border-b border-slate-100 bg-slate-50/80">
+                <thead className="border-b border-border bg-muted/80">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Time</th>
-                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Action</th>
-                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Description</th>
-                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Actor</th>
-                    <th className="px-4 py-3 text-left font-semibold text-slate-600">Entity</th>
+                    <th className="px-4 py-3 text-left font-semibold text-muted-foreground">Time</th>
+                    <th className="px-4 py-3 text-left font-semibold text-muted-foreground">Action</th>
+                    <th className="px-4 py-3 text-left font-semibold text-muted-foreground">
+                      Description
+                    </th>
+                    <th className="px-4 py-3 text-left font-semibold text-muted-foreground">Actor</th>
+                    <th className="px-4 py-3 text-left font-semibold text-muted-foreground">Entity</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-border">
                   {logsQuery.data.items.map((log) => (
-                    <tr key={log.id} className="hover:bg-slate-50/50">
-                      <td className="whitespace-nowrap px-4 py-3 text-slate-500">
+                    <tr key={log.id} className="hover:bg-muted/40">
+                      <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                         {formatDate(log.createdAt)}
                       </td>
                       <td className="px-4 py-3">
-                        <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700">
+                        <span className="rounded-full bg-primary-light px-2.5 py-1 text-xs font-semibold text-primary dark:bg-primary/15 dark:text-blue-300">
                           {formatAction(log.action)}
                         </span>
                       </td>
-                      <td className="max-w-md px-4 py-3 text-slate-700">{log.description}</td>
-                      <td className="px-4 py-3 text-slate-600">
+                      <td className="max-w-md px-4 py-3 text-foreground/80">{log.description}</td>
+                      <td className="px-4 py-3 text-foreground/70">
                         {log.actorEmail ?? "System"}
                         {log.actorRole ? (
-                          <span className="ml-1 text-xs text-slate-400">({log.actorRole})</span>
+                          <span className="ml-1 text-xs text-muted-foreground">({log.actorRole})</span>
                         ) : null}
                       </td>
-                      <td className="px-4 py-3 text-slate-500">
+                      <td className="px-4 py-3 text-muted-foreground">
                         {log.entityType ? `${log.entityType}` : "—"}
                         {log.entityId ? (
-                          <span className="block truncate text-xs text-slate-400">{log.entityId}</span>
+                          <span className="block truncate text-xs text-muted-foreground/80">
+                            {log.entityId}
+                          </span>
                         ) : null}
                       </td>
                     </tr>

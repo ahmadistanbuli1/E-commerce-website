@@ -97,7 +97,7 @@ export function ProductDetailsPage() {
   return (
     <PageLayout className="py-6 sm:py-10">
       <motion.nav
-        className="flex flex-wrap items-center gap-1 text-sm text-slate-500"
+        className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground"
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
@@ -110,9 +110,9 @@ export function ProductDetailsPage() {
           Products
         </Link>
         <ChevronRight className="h-4 w-4" />
-        <span className="text-slate-600">{p.category.name}</span>
+        <span className="text-foreground/70">{p.category.name}</span>
         <ChevronRight className="h-4 w-4" />
-        <span className="line-clamp-1 font-medium text-slate-800">{p.name}</span>
+        <span className="line-clamp-1 font-medium text-foreground">{p.name}</span>
       </motion.nav>
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
@@ -123,7 +123,7 @@ export function ProductDetailsPage() {
           variants={slideInLeft}
         >
           <Card padding="sm" className="overflow-hidden">
-            <motion.div className="aspect-square overflow-hidden rounded-2xl bg-slate-50" variants={imageReveal}>
+            <motion.div className="aspect-square overflow-hidden rounded-2xl bg-muted" variants={imageReveal}>
               <motion.img
                 className="h-full w-full object-cover"
                 src={resolveImageUrl(p.imageUrl)}
@@ -148,7 +148,7 @@ export function ProductDetailsPage() {
               <motion.div key={label} variants={fadeUp} whileHover={{ y: -3 }}>
                 <Card padding="sm" className="flex flex-col items-center gap-2 text-center">
                   <Icon className="h-5 w-5 text-blue-600" />
-                  <span className="text-[11px] font-medium leading-tight text-slate-600">{label}</span>
+                  <span className="text-[11px] font-medium leading-tight text-muted-foreground">{label}</span>
                 </Card>
               </motion.div>
             ))}
@@ -195,8 +195,8 @@ export function ProductDetailsPage() {
             <p className="body-text mt-5">{p.description}</p>
 
             {me.data ? (
-              <div className="mt-6 rounded-2xl border border-slate-100 bg-slate-50/80 p-4">
-                <p className="text-sm font-semibold text-slate-800">
+              <div className="mt-6 rounded-2xl border border-border bg-muted/50 p-4">
+                <p className="text-sm font-semibold text-foreground">
                   {myReviewQuery.data ? "Update your rating" : "Rate this product"}
                 </p>
                 <div className="mt-2 flex flex-wrap items-center gap-3">
@@ -234,7 +234,7 @@ export function ProductDetailsPage() {
                     max={p.stock}
                     onChange={setQuantity}
                   />
-                  <span className="text-xs text-slate-400">{p.stock} available</span>
+                  <span className="text-xs text-muted-foreground">{p.stock} available</span>
                 </motion.div>
               ) : null}
 
@@ -276,19 +276,19 @@ export function ProductDetailsPage() {
               </motion.div>
             </motion.div>
 
-            <div className="mt-8 grid grid-cols-2 gap-3 border-t border-slate-100 pt-6">
-              <div className="flex items-center gap-3 rounded-xl bg-slate-50 px-4 py-3">
-                <Package className="h-5 w-5 shrink-0 text-slate-500" />
+            <div className="mt-8 grid grid-cols-2 gap-3 border-t border-border pt-6">
+              <div className="flex items-center gap-3 rounded-xl bg-muted px-4 py-3">
+                <Package className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <div>
-                  <p className="text-xs font-semibold text-slate-800">SKU</p>
-                  <p className="text-xs text-slate-500">{p.id.slice(0, 8).toUpperCase()}</p>
+                  <p className="text-xs font-semibold text-foreground">SKU</p>
+                  <p className="text-xs text-muted-foreground">{p.id.slice(0, 8).toUpperCase()}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 rounded-xl bg-slate-50 px-4 py-3">
-                <Package className="h-5 w-5 shrink-0 text-slate-500" />
+              <div className="flex items-center gap-3 rounded-xl bg-muted px-4 py-3">
+                <Package className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <div>
-                  <p className="text-xs font-semibold text-slate-800">Category</p>
-                  <p className="text-xs text-slate-500">{p.category.name}</p>
+                  <p className="text-xs font-semibold text-foreground">Category</p>
+                  <p className="text-xs text-muted-foreground">{p.category.name}</p>
                 </div>
               </div>
             </div>
@@ -318,7 +318,7 @@ export function ProductDetailsPage() {
               "Customer support available",
               "Secure payment processing"
             ].map((item) => (
-              <motion.li key={item} variants={fadeUp} className="flex items-center gap-2 text-sm text-slate-600">
+              <motion.li key={item} variants={fadeUp} className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
                 {item}
               </motion.li>

@@ -100,20 +100,20 @@ export function ProductsPage() {
   return (
     <PageLayout>
       <motion.section
-        className="relative overflow-hidden rounded-3xl border border-slate-100 bg-white px-6 py-8 shadow-card sm:px-10"
+        className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-8 shadow-card sm:px-10"
         initial="hidden"
         animate="visible"
         variants={staggerContainer(0.1, 0.05)}
       >
         <motion.div
-          className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-50 blur-3xl"
+          className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary-light blur-3xl dark:bg-primary/10"
           animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.9, 0.6] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <div className="relative">
           <motion.p
             variants={fadeUp}
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
           >
             <Sparkles className="h-3.5 w-3.5 text-blue-600" />
             Curated collection
@@ -134,19 +134,19 @@ export function ProductsPage() {
       >
       <Card className="mt-8" padding="sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center gap-2 text-sm text-slate-600">
-            <SlidersHorizontal className="h-4 w-4 text-slate-400" />
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
             <span>
-              Showing <span className="font-semibold text-slate-900">{selectedCategoryName}</span>
+              Showing <span className="font-semibold text-foreground">{selectedCategoryName}</span>
               {productsQuery.data ? (
-                <span className="text-slate-400"> · {productsQuery.data.meta.total} items</span>
+                <span className="text-muted-foreground"> · {productsQuery.data.meta.total} items</span>
               ) : null}
             </span>
           </div>
 
           <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center lg:w-auto">
             <div className="relative flex-1 sm:min-w-[260px]">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 className="input-base py-2.5 pl-10"
                 placeholder="Search products..."

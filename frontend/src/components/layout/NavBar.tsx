@@ -12,12 +12,12 @@ import { useCart } from "../../hooks/cart";
 
 import { useMemo, useState, useEffect, FormEvent } from "react";
 
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 import { setCartOpen } from "../../app/features/ui/uiSlice";
 
+import { ThemeToggle } from "../ui/ThemeToggle";
 import { cn } from "../../utils/cn";
-
 import { springSnappy, tapPress } from "../../utils/motion";
 
 
@@ -36,13 +36,7 @@ function NavLink({ to, children, className }: { to: string; children: React.Reac
 
         to={to}
 
-        className={cn(
-
-          "inline-flex rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition-all duration-150 hover:border-slate-300 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500/20",
-
-          className
-
-        )}
+        className={cn("nav-link", className)}
 
       >
 
@@ -65,6 +59,7 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const isDark = useAppSelector((s) => s.ui.theme) === "dark";
   const cartQuery = useCart(isLoggedIn);
 
   const [search, setSearch] = useState("");
@@ -163,10 +158,12 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
                 borderRadius: scrolled ? 0 : 16,
 
                 boxShadow: scrolled
-
-                  ? "0 1px 3px rgba(15,23,42,0.08)"
-
-                  : "0 10px 40px rgba(15,23,42,0.08)"
+                  ? isDark
+                    ? "0 1px 3px rgba(0,0,0,0.45)"
+                    : "0 1px 3px rgba(15,23,42,0.08)"
+                  : isDark
+                    ? "0 10px 40px rgba(0,0,0,0.35)"
+                    : "0 10px 40px rgba(15,23,42,0.08)"
 
               }
 
@@ -179,10 +176,8 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
         className={cn(
 
           isFloating
-
-            ? "mx-auto max-w-7xl border border-white/50 bg-white/70 backdrop-blur-xl"
-
-            : "border-b border-slate-200 bg-white/90 backdrop-blur-md"
+            ? "glass-panel mx-auto max-w-7xl"
+            : "border-b border-border bg-card/90 backdrop-blur-md"
 
         )}
 
@@ -192,7 +187,7 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
 
           <motion.div whileHover={{ scale: 1.02 }} whileTap={tapPress}>
 
-            <Link to="/" className="inline-flex shrink-0 items-center gap-2 font-bold text-slate-900">
+            <Link to="/" className="inline-flex shrink-0 items-center gap-2 font-bold text-foreground">
 
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-600/20">
 
@@ -212,11 +207,9 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
 
             <div className="relative">
 
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
-
-                className="input-base border-white/60 bg-white/80 py-2 pl-10 backdrop-blur-sm"
+                className="input-base py-2 pl-10"
 
                 placeholder="Search products..."
 
@@ -242,6 +235,8 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
 
 
 
+            <ThemeToggle compact />
+
             {isLoggedIn ? (
               <NavLink to="/wishlist" className="hidden items-center gap-1.5 sm:inline-flex">
                 <Heart className="h-4 w-4 text-red-500" />
@@ -257,7 +252,7 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
                 onClick={() => dispatch(setCartOpen(true))}
                 whileHover={{ scale: 1.03 }}
                 whileTap={tapPress}
-                className="relative inline-flex items-center gap-2 rounded-xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+                className="relative inline-flex items-center gap-2 rounded-xl bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-colors hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-ring/30"
               >
                 <ShoppingCart className="h-4 w-4" />
                 <span className="hidden sm:inline">Cart</span>
@@ -269,7 +264,7 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
                       animate={{ scale: 1, opacity: 1 }}
                       exit={{ scale: 0, opacity: 0 }}
                       transition={{ type: "spring", stiffness: 500, damping: 20 }}
-                      className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white ring-2 ring-white"
+                      className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white ring-2 ring-card"
                     >
                       {count > 99 ? "99+" : count}
                     </motion.span>
@@ -298,7 +293,7 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
 
               <Menu as="div" className="relative">
 
-                <Menu.Button className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white py-1.5 pl-1.5 pr-2.5 text-sm font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                <Menu.Button className="inline-flex items-center gap-2 rounded-xl border border-border bg-card py-1.5 pl-1.5 pr-2.5 text-sm font-medium text-foreground/80 shadow-sm transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring/25">
 
                   <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 text-xs font-bold text-white">
 
@@ -308,21 +303,19 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
 
                   <span className="hidden max-w-[6rem] truncate lg:inline">{user.firstName}</span>
 
-                  <ChevronDown className="h-4 w-4 text-slate-400" />
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
 
                 </Menu.Button>
 
 
 
-                <Menu.Items className="absolute right-0 mt-2 w-52 origin-top-right rounded-xl border border-slate-100 bg-white p-1 shadow-lg focus:outline-none">
-
-                  <div className="border-b border-slate-100 px-3 py-2">
-
-                    <p className="truncate text-sm font-semibold text-slate-800">
+                <Menu.Items className="absolute right-0 mt-2 w-52 origin-top-right rounded-xl border border-border bg-card p-1 shadow-lg focus:outline-none dark:shadow-black/40">
+                  <div className="border-b border-border px-3 py-2">
+                    <p className="truncate text-sm font-semibold text-foreground">
 
                       {user.firstName} {user.lastName}
                     </p>
-                    <p className="truncate text-xs text-slate-500">{user.email}</p>
+                    <p className="truncate text-xs text-muted-foreground">{user.email}</p>
 
                   </div>
 
@@ -338,7 +331,7 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
 
                           "flex items-center gap-2 rounded-lg px-3 py-2 text-sm",
 
-                          active ? "bg-slate-50 text-slate-900" : "text-slate-700"
+                          active ? "bg-muted text-foreground" : "text-foreground/80"
 
                         )}
 
@@ -368,7 +361,7 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
 
                           "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm",
 
-                          active ? "bg-slate-50 text-slate-900" : "text-slate-700"
+                          active ? "bg-muted text-foreground" : "text-foreground/80"
 
                         )}
 
@@ -400,15 +393,11 @@ export function NavBar({ variant = "default" }: { variant?: NavBarVariant }) {
 
 
 
-        <form onSubmit={handleSearch} className="border-t border-slate-100/80 px-4 py-2 md:hidden">
-
+        <form onSubmit={handleSearch} className="border-t border-border/80 px-4 py-2 md:hidden">
           <div className="relative">
-
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
-
-              className="input-base border-white/60 bg-white/80 py-2 pl-10 backdrop-blur-sm"
+              className="input-base py-2 pl-10"
 
               placeholder="Search products..."
 

@@ -17,13 +17,13 @@ export function QuantityControl({
   const btnClass = size === "sm" ? "p-1.5" : "p-2.5";
 
   return (
-    <div className="inline-flex items-center rounded-xl border border-slate-200 bg-slate-50">
+    <div className="inline-flex items-center rounded-xl border border-border bg-muted">
       <button
         type="button"
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
         className={cn(
-          "rounded-l-xl text-slate-600 transition-colors hover:bg-white disabled:opacity-40",
+          "rounded-l-xl text-foreground/70 transition-colors hover:bg-card disabled:opacity-40",
           btnClass
         )}
         aria-label="Decrease quantity"
@@ -32,7 +32,7 @@ export function QuantityControl({
       </button>
       <span
         className={cn(
-          "min-w-[2.5rem] text-center font-semibold text-slate-900",
+          "min-w-[2.5rem] text-center font-semibold text-foreground",
           size === "sm" ? "text-xs" : "text-sm"
         )}
       >
@@ -43,7 +43,7 @@ export function QuantityControl({
         onClick={() => onChange(max !== undefined ? Math.min(max, value + 1) : value + 1)}
         disabled={max !== undefined && value >= max}
         className={cn(
-          "rounded-r-xl text-slate-600 transition-colors hover:bg-white disabled:opacity-40",
+          "rounded-r-xl text-foreground/70 transition-colors hover:bg-card disabled:opacity-40",
           btnClass
         )}
         aria-label="Increase quantity"

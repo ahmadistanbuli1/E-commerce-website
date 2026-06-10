@@ -96,12 +96,12 @@ function SectionHeader({
       </motion.p>
       <motion.h2
         variants={fadeUp}
-        className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+        className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
       >
         {title}
       </motion.h2>
       {description ? (
-        <motion.p variants={fadeUp} className="mt-2 max-w-lg text-slate-600">
+        <motion.p variants={fadeUp} className="mt-2 max-w-lg text-muted-foreground">
           {description}
         </motion.p>
       ) : null}
@@ -156,20 +156,20 @@ export function LandingPage() {
         ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-background">
       <NavBar variant="floating" />
 
       <main className="pt-24 sm:pt-28">
         {/* Hero */}
         <section className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/80 via-slate-50 to-slate-50" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/80 via-background to-background dark:from-blue-950/40 dark:via-background dark:to-background" />
           <motion.div
-            className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-blue-200/40 blur-3xl"
+            className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-blue-200/40 blur-3xl dark:bg-blue-600/15"
             animate={{ y: [0, -18, 0], x: [0, 12, 0] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-violet-200/30 blur-3xl"
+            className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-violet-200/30 blur-3xl dark:bg-violet-600/10"
             animate={{ y: [0, 14, 0], x: [0, -10, 0] }}
             transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -183,7 +183,7 @@ export function LandingPage() {
             >
               <motion.p
                 variants={fadeUp}
-                className="inline-flex items-center gap-2 rounded-full border border-blue-200/60 bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-blue-700 shadow-sm backdrop-blur-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-card/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary shadow-sm backdrop-blur-sm"
               >
                 <motion.span
                   animate={{ rotate: [0, 12, -8, 0] }}
@@ -196,7 +196,7 @@ export function LandingPage() {
 
               <motion.h1
                 variants={fadeUp}
-                className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-slate-900 sm:text-5xl lg:text-6xl"
+                className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-6xl"
               >
                 Style that moves
                 <motion.span
@@ -209,7 +209,7 @@ export function LandingPage() {
                 </motion.span>
               </motion.h1>
 
-              <motion.p variants={fadeUp} className="mt-6 text-lg leading-relaxed text-slate-600 sm:text-xl">
+              <motion.p variants={fadeUp} className="mt-6 text-lg leading-relaxed text-muted-foreground sm:text-xl">
                 Discover curated essentials, limited drops, and everyday favorites — crafted for a seamless shopping
                 experience from browse to checkout.
               </motion.p>
@@ -225,14 +225,14 @@ export function LandingPage() {
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={tapPress}>
                   <Link to="/register">
-                    <Button variant="outline" size="lg" className="bg-white/80 backdrop-blur-sm">
+                    <Button variant="outline" size="lg" className="bg-card/80 backdrop-blur-sm">
                       Join for free
                     </Button>
                   </Link>
                 </motion.div>
               </motion.div>
 
-              <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-6 text-sm text-slate-600">
+              <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <motion.span
@@ -244,8 +244,8 @@ export function LandingPage() {
                       <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
                     </motion.span>
                   ))}
-                  <span className="ml-2 font-medium text-slate-800">4.9</span>
-                  <span className="text-slate-500">from 12k+ reviews</span>
+                  <span className="ml-2 font-medium text-foreground">4.9</span>
+                  <span className="text-muted-foreground">from 12k+ reviews</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -259,7 +259,7 @@ export function LandingPage() {
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-3 sm:space-y-4">
                   <motion.div
-                    className="group relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl shadow-slate-900/10"
+                    className="group relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/40"
                     initial={{ opacity: 0, y: 32 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.35, duration: 0.6 }}
@@ -275,14 +275,14 @@ export function LandingPage() {
                   </motion.div>
 
                   <motion.div
-                    className="rounded-2xl border border-white/60 bg-white/70 p-4 shadow-lg backdrop-blur-md"
+                    className="rounded-2xl border border-white/60 bg-card/70 p-4 shadow-lg backdrop-blur-md"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.55, duration: 0.5 }}
                     whileHover={{ scale: 1.02 }}
                   >
-                    <p className="text-2xl font-bold text-slate-900">Up to 40%</p>
-                    <p className="mt-1 text-sm text-slate-600">Seasonal sale on selected items</p>
+                    <p className="text-2xl font-bold text-foreground">Up to 40%</p>
+                    <p className="mt-1 text-sm text-muted-foreground">Seasonal sale on selected items</p>
                   </motion.div>
                 </div>
 
@@ -290,7 +290,7 @@ export function LandingPage() {
                   {heroImages.slice(1).map((img, idx) => (
                     <motion.div
                       key={img.src}
-                      className={`group relative overflow-hidden rounded-3xl shadow-xl shadow-slate-900/10 ${img.className}`}
+                      className={`group relative overflow-hidden rounded-3xl shadow-xl shadow-black/10 dark:shadow-black/40 ${img.className}`}
                       initial={{ opacity: 0, y: 40 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.45 + idx * 0.15, duration: 0.6 }}
@@ -316,7 +316,7 @@ export function LandingPage() {
         </section>
 
         {/* Perks */}
-        <section className="border-y border-slate-200/80 bg-white">
+        <section className="border-y border-border bg-card">
           <motion.div
             className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-10 sm:grid-cols-4 lg:px-6"
             initial="hidden"
@@ -332,14 +332,14 @@ export function LandingPage() {
                 className="flex flex-col items-center text-center sm:items-start sm:text-left"
               >
                 <motion.span
-                  className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600"
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-light text-primary dark:bg-primary/15"
                   whileHover={{ scale: 1.08, rotate: 4 }}
                   transition={{ type: "spring", stiffness: 400, damping: 14 }}
                 >
                   <Icon className="h-5 w-5" />
                 </motion.span>
-                <p className="mt-3 text-sm font-semibold text-slate-900">{title}</p>
-                <p className="mt-1 text-xs text-slate-500 sm:text-sm">{desc}</p>
+                <p className="mt-3 text-sm font-semibold text-foreground">{title}</p>
+                <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -396,7 +396,7 @@ export function LandingPage() {
         </section>
 
         {/* Trending */}
-        <section className="bg-white py-20">
+        <section className="bg-card py-20">
           <div className="mx-auto max-w-7xl px-4 lg:px-6">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <SectionHeader
@@ -448,7 +448,7 @@ export function LandingPage() {
         {/* Promo banner */}
         <section className="mx-auto max-w-7xl px-4 py-6 lg:px-6">
           <motion.div
-            className="relative overflow-hidden rounded-3xl bg-slate-900 px-8 py-14 sm:px-12 sm:py-16"
+            className="relative overflow-hidden rounded-3xl bg-zinc-900 px-8 py-14 dark:bg-zinc-950 sm:px-12 sm:py-16"
             initial={{ opacity: 0, scale: 0.96, y: 24 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={viewportOnce}
@@ -484,7 +484,7 @@ export function LandingPage() {
               </motion.div>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={tapPress}>
                 <Link to="/products">
-                  <Button size="lg" className="shrink-0 bg-white text-slate-900 hover:bg-white/90">
+                  <Button size="lg" className="shrink-0 bg-card text-foreground hover:bg-card/90">
                     Shop the sale
                   </Button>
                 </Link>
@@ -504,7 +504,7 @@ export function LandingPage() {
               variants={slideInLeft}
             >
               <motion.div
-                className="overflow-hidden rounded-3xl shadow-2xl shadow-slate-900/10"
+                className="overflow-hidden rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/40"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 260, damping: 22 }}
               >
@@ -515,7 +515,7 @@ export function LandingPage() {
                 />
               </motion.div>
               <motion.div
-                className="absolute -bottom-6 -right-4 rounded-2xl border border-white/60 bg-white/90 p-5 shadow-xl backdrop-blur-md sm:-right-6"
+                className="absolute -bottom-6 -right-4 rounded-2xl border border-white/60 bg-card/90 p-5 shadow-xl backdrop-blur-md sm:-right-6"
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={viewportOnce}
@@ -526,8 +526,8 @@ export function LandingPage() {
                     <Award className="h-6 w-6" />
                   </span>
                   <div>
-                    <p className="text-sm font-bold text-slate-900">Trusted since 2020</p>
-                    <p className="text-xs text-slate-500">Quality-first e-commerce</p>
+                    <p className="text-sm font-bold text-foreground">Trusted since 2020</p>
+                    <p className="text-xs text-muted-foreground">Quality-first e-commerce</p>
                   </div>
                 </div>
               </motion.div>
@@ -540,10 +540,10 @@ export function LandingPage() {
               variants={slideInRight}
             >
               <p className="text-xs font-semibold uppercase tracking-widest text-blue-600">About us</p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                 Built for people who expect more from online shopping
               </h2>
-              <p className="mt-5 text-lg leading-relaxed text-slate-600">
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
                 We combine thoughtful curation, fast fulfillment, and a frictionless checkout so you can focus on
                 finding products you love — not fighting the interface.
               </p>
@@ -560,10 +560,10 @@ export function LandingPage() {
                     key={s.label}
                     variants={scaleIn}
                     whileHover={{ y: -3, scale: 1.02 }}
-                    className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm"
+                    className="rounded-2xl border border-border bg-card p-4 shadow-sm"
                   >
-                    <p className="text-2xl font-extrabold text-slate-900">{s.value}</p>
-                    <p className="mt-1 text-xs text-slate-500">{s.label}</p>
+                    <p className="text-2xl font-extrabold text-foreground">{s.value}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -575,18 +575,18 @@ export function LandingPage() {
                 whileInView="visible"
                 viewport={viewportOnce}
               >
-                <motion.div variants={fadeUp} whileHover={{ x: 4 }} className="flex gap-3 rounded-2xl bg-slate-100/80 p-4">
+                <motion.div variants={fadeUp} whileHover={{ x: 4 }} className="flex gap-3 rounded-2xl bg-muted/80 p-4">
                   <Users className="h-5 w-5 shrink-0 text-blue-600" />
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">Customer-first</p>
-                    <p className="mt-1 text-sm text-slate-600">Every decision starts with your experience.</p>
+                    <p className="text-sm font-semibold text-foreground">Customer-first</p>
+                    <p className="mt-1 text-sm text-muted-foreground">Every decision starts with your experience.</p>
                   </div>
                 </motion.div>
-                <motion.div variants={fadeUp} whileHover={{ x: 4 }} className="flex gap-3 rounded-2xl bg-slate-100/80 p-4">
+                <motion.div variants={fadeUp} whileHover={{ x: 4 }} className="flex gap-3 rounded-2xl bg-muted/80 p-4">
                   <Package className="h-5 w-5 shrink-0 text-blue-600" />
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">Quality assured</p>
-                    <p className="mt-1 text-sm text-slate-600">Curated products from trusted suppliers.</p>
+                    <p className="text-sm font-semibold text-foreground">Quality assured</p>
+                    <p className="mt-1 text-sm text-muted-foreground">Curated products from trusted suppliers.</p>
                   </div>
                 </motion.div>
               </motion.div>
@@ -595,7 +595,7 @@ export function LandingPage() {
         </section>
 
         {/* Newsletter */}
-        <section className="border-t border-slate-200 bg-white py-16">
+        <section className="border-t border-border bg-card py-16">
           <motion.div
             className="mx-auto max-w-2xl px-4 text-center lg:px-6"
             initial="hidden"
@@ -603,10 +603,10 @@ export function LandingPage() {
             viewport={viewportOnce}
             variants={staggerContainer(0.12)}
           >
-            <motion.h3 variants={fadeUp} className="text-2xl font-bold text-slate-900">
+            <motion.h3 variants={fadeUp} className="text-2xl font-bold text-foreground">
               Stay in the loop
             </motion.h3>
-            <motion.p variants={fadeUp} className="mt-2 text-slate-600">
+            <motion.p variants={fadeUp} className="mt-2 text-muted-foreground">
               Get early access to drops, sales, and style inspiration.
             </motion.p>
             <motion.form
@@ -631,7 +631,7 @@ export function LandingPage() {
 
         {/* Footer */}
         <motion.footer
-          className="border-t border-slate-200 bg-slate-900 px-4 py-12 text-slate-400 lg:px-6"
+          className="border-t border-border bg-zinc-900 px-4 py-12 text-zinc-400 lg:px-6 dark:bg-zinc-950"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={viewportOnce}

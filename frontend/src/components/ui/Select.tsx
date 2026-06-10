@@ -56,28 +56,28 @@ export function Select({
               disabled && "cursor-not-allowed opacity-60"
             )}
           >
-            <span className={cn("truncate", !selected && "text-slate-400")}>
+            <span className={cn("truncate", !selected && "text-muted-foreground")}>
               {selected?.label ?? placeholder}
             </span>
-            <ChevronDown className="h-4 w-4 shrink-0 text-slate-400" aria-hidden />
+            <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
           </Listbox.Button>
 
-          <Listbox.Options className="absolute z-30 mt-1 max-h-60 w-full origin-top overflow-auto rounded-xl border border-slate-100 bg-white p-1 shadow-lg focus:outline-none">
+          <Listbox.Options className="absolute z-30 mt-1 max-h-60 w-full origin-top overflow-auto rounded-xl border border-border bg-card p-1 shadow-lg focus:outline-none dark:shadow-black/40">
             {allowClear ? (
               <Listbox.Option
                 value=""
                 className={({ active, selected: isSelected }) =>
                   cn(
                     "flex cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
-                    active ? "bg-slate-50 text-slate-900" : "text-slate-700",
-                    isSelected && "font-semibold text-blue-700"
+                    active ? "bg-muted text-foreground" : "text-foreground/80",
+                    isSelected && "font-semibold text-primary"
                   )
                 }
               >
                 {({ selected: isSelected }) => (
                   <>
                     <span className="truncate">{clearLabel ?? placeholder}</span>
-                    {isSelected ? <Check className="h-4 w-4 shrink-0 text-blue-600" /> : null}
+                    {isSelected ? <Check className="h-4 w-4 shrink-0 text-primary" /> : null}
                   </>
                 )}
               </Listbox.Option>
@@ -89,15 +89,15 @@ export function Select({
                 className={({ active, selected: isSelected }) =>
                   cn(
                     "flex cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
-                    active ? "bg-slate-50 text-slate-900" : "text-slate-700",
-                    isSelected && "font-semibold text-blue-700"
+                    active ? "bg-muted text-foreground" : "text-foreground/80",
+                    isSelected && "font-semibold text-primary"
                   )
                 }
               >
                 {({ selected: isSelected }) => (
                   <>
                     <span className="truncate">{option.label}</span>
-                    {isSelected ? <Check className="h-4 w-4 shrink-0 text-blue-600" /> : null}
+                    {isSelected ? <Check className="h-4 w-4 shrink-0 text-primary" /> : null}
                   </>
                 )}
               </Listbox.Option>

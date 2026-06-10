@@ -20,16 +20,11 @@ export function CategoryEditDialog({
 }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (open && category) {
-      setName(category.name);
-      setDescription(category.description);
-      setReady(true);
-    } else if (!open) {
-      setReady(false);
-    }
+    if (!open || !category) return;
+    setName(category.name);
+    setDescription(category.description);
   }, [open, category]);
 
   const canSave = name.trim().length >= 3 && description.trim().length > 0;
@@ -47,7 +42,7 @@ export function CategoryEditDialog({
             Cancel
           </Button>
           <Button
-            disabled={!canSave || isPending || !ready}
+            disabled={!canSave || isPending || !category}
             onClick={() => onSave({ name: name.trim(), description: description.trim() })}
           >
             Save changes
@@ -55,7 +50,7 @@ export function CategoryEditDialog({
         </>
       }
     >
-      {ready && category ? (
+      {category ? (
         <div className="space-y-4">
           <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} />
           <Textarea
@@ -65,11 +60,7 @@ export function CategoryEditDialog({
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-      ) : (
-        <div className="flex h-32 items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-blue-600" />
-        </div>
-      )}
+      ) : null}
     </AdminDialog>
   );
 }

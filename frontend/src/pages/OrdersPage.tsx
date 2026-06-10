@@ -53,13 +53,15 @@ export function OrdersPage() {
             <Card key={o.id} hover>
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100">
-                    <Package className="h-5 w-5 text-blue-600" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-light dark:bg-primary/15">
+                    <Package className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-slate-400">Order ID</p>
-                    <p className="font-mono text-sm text-slate-800">{o.id.slice(0, 12)}...</p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      Order ID
+                    </p>
+                    <p className="font-mono text-sm text-foreground">{o.id.slice(0, 12)}...</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {new Date(o.createdAt).toLocaleString()}
                     </p>
                   </div>
@@ -68,34 +70,34 @@ export function OrdersPage() {
               </div>
 
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <div className="rounded-xl bg-slate-50 px-4 py-3">
-                  <p className="text-xs text-slate-500">Payment</p>
-                  <p className="mt-0.5 text-sm font-medium text-slate-800">{o.paymentMethod}</p>
+                <div className="rounded-xl bg-muted px-4 py-3">
+                  <p className="text-xs text-muted-foreground">Payment</p>
+                  <p className="mt-0.5 text-sm font-medium text-foreground">{o.paymentMethod}</p>
                 </div>
-                <div className="rounded-xl bg-slate-50 px-4 py-3">
-                  <p className="text-xs text-slate-500">Total</p>
-                  <p className="mt-0.5 text-lg font-bold text-slate-900">${o.totalPrice}</p>
+                <div className="rounded-xl bg-muted px-4 py-3">
+                  <p className="text-xs text-muted-foreground">Total</p>
+                  <p className="mt-0.5 text-lg font-bold text-foreground">${o.totalPrice}</p>
                 </div>
-                <div className="rounded-xl bg-slate-50 px-4 py-3 sm:col-span-1">
-                  <p className="text-xs text-slate-500">Items</p>
-                  <p className="mt-0.5 text-sm font-medium text-slate-800">
+                <div className="rounded-xl bg-muted px-4 py-3 sm:col-span-1">
+                  <p className="text-xs text-muted-foreground">Items</p>
+                  <p className="mt-0.5 text-sm font-medium text-foreground">
                     {o.items?.length ?? 0} product(s)
                   </p>
                 </div>
               </div>
 
-              <div className="mt-3 rounded-xl bg-slate-50 px-4 py-3">
-                <p className="text-xs text-slate-500">Shipping address</p>
-                <p className="mt-1 text-sm text-slate-800">{o.shippingAddress}</p>
+              <div className="mt-3 rounded-xl bg-muted px-4 py-3">
+                <p className="text-xs text-muted-foreground">Shipping address</p>
+                <p className="mt-1 text-sm text-foreground">{o.shippingAddress}</p>
               </div>
 
               {o.adminMessage ? (
-                <div className="mt-3 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3">
-                  <p className="flex items-center gap-1.5 text-xs font-semibold text-blue-700">
+                <div className="mt-3 rounded-xl border border-primary/20 bg-primary-light px-4 py-3 dark:bg-primary/10">
+                  <p className="flex items-center gap-1.5 text-xs font-semibold text-primary">
                     <MessageSquare className="h-3.5 w-3.5" />
                     Message from store
                   </p>
-                  <p className="mt-1 text-sm leading-relaxed text-slate-700">{o.adminMessage}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-foreground/80">{o.adminMessage}</p>
                 </div>
               ) : null}
             </Card>

@@ -51,8 +51,8 @@ export function CheckoutPage() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <Card>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100">
-                <MapPin className="h-5 w-5 text-blue-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light dark:bg-primary/15">
+                <MapPin className="h-5 w-5 text-primary" />
               </div>
               <h2 className="heading-3">Shipping details</h2>
             </div>
@@ -95,8 +95,8 @@ export function CheckoutPage() {
 
           <Card>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100">
-                <ShoppingBag className="h-5 w-5 text-violet-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 dark:bg-violet-500/15">
+                <ShoppingBag className="h-5 w-5 text-violet-600 dark:text-violet-400" />
               </div>
               <h2 className="heading-3">Order summary</h2>
             </div>
@@ -105,27 +105,27 @@ export function CheckoutPage() {
               {cart.items.map((it) => (
                 <div
                   key={it.id}
-                  className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/50 p-3"
+                  className="flex items-center gap-3 rounded-xl border border-border bg-muted/50 p-3"
                 >
                   <ProductImage
                     src={it.product.imageUrl}
                     alt={it.product.name}
-                    className="h-14 w-14 shrink-0 rounded-lg object-cover ring-1 ring-slate-200"
+                    className="h-14 w-14 shrink-0 rounded-lg object-cover ring-1 ring-border"
                   />
                   <div className="min-w-0 flex-1">
-                    <p className="truncate font-medium text-slate-800">{it.product.name}</p>
-                    <p className="text-sm text-slate-500">
+                    <p className="truncate font-medium text-foreground">{it.product.name}</p>
+                    <p className="text-sm text-muted-foreground">
                       {it.quantity} × ${it.unitPrice}
                     </p>
                   </div>
-                  <p className="font-semibold text-slate-900">${it.lineTotal}</p>
+                  <p className="font-semibold text-foreground">${it.lineTotal}</p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
-              <p className="text-sm text-slate-600">Total</p>
-              <p className="text-2xl font-bold text-slate-900">${cart.total}</p>
+            <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
+              <p className="text-sm text-muted-foreground">Total</p>
+              <p className="text-2xl font-bold text-foreground">${cart.total}</p>
             </div>
           </Card>
         </div>

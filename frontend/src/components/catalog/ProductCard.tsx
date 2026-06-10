@@ -11,13 +11,13 @@ import { fadeUp, hoverLift, tapPress, viewportOnce } from "../../utils/motion";
 
 export function ProductCardSkeleton() {
   return (
-    <div className="animate-pulse overflow-hidden rounded-2xl border border-slate-100 bg-white">
-      <div className="aspect-square bg-slate-100" />
+    <div className="animate-pulse overflow-hidden rounded-2xl border border-border bg-card">
+      <div className="aspect-square bg-muted" />
       <div className="space-y-3 p-4">
-        <div className="h-3 w-16 rounded bg-slate-100" />
-        <div className="h-4 w-full rounded bg-slate-100" />
-        <div className="h-4 w-2/3 rounded bg-slate-100" />
-        <div className="h-5 w-20 rounded bg-slate-100" />
+        <div className="h-3 w-16 rounded bg-muted" />
+        <div className="h-4 w-full rounded bg-muted" />
+        <div className="h-4 w-2/3 rounded bg-muted" />
+        <div className="h-5 w-20 rounded bg-muted" />
       </div>
     </div>
   );
@@ -50,8 +50,8 @@ export function ProductCard({
       whileHover={!outOfStock ? hoverLift : undefined}
       whileTap={!outOfStock ? tapPress : undefined}
       className={cn(
-        "relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm",
-        outOfStock ? "cursor-not-allowed opacity-50" : "group hover:shadow-lg hover:shadow-slate-200/60"
+        "relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm",
+        outOfStock ? "cursor-not-allowed opacity-50" : "group hover:shadow-card-hover"
       )}
     >
       <Link
@@ -59,7 +59,7 @@ export function ProductCard({
         className={cn("relative block overflow-hidden", outOfStock && "pointer-events-none")}
         onClick={outOfStock ? (e) => e.preventDefault() : undefined}
       >
-        <div className="relative aspect-square overflow-hidden bg-slate-50">
+        <div className="relative aspect-square overflow-hidden bg-muted">
           <ProductImage
             alt={product.name}
             className={cn(
@@ -70,8 +70,8 @@ export function ProductCard({
           />
 
           {outOfStock ? (
-            <div className="absolute inset-0 flex items-center justify-center bg-white/60">
-              <span className="rounded-full bg-slate-800 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">
+            <div className="absolute inset-0 flex items-center justify-center bg-background/60">
+              <span className="rounded-full bg-foreground px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-background">
                 Sold out
               </span>
             </div>
@@ -117,7 +117,7 @@ export function ProductCard({
                   e.stopPropagation();
                   onAddToCart();
                 }}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900/90 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-slate-900 disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-foreground/90 py-2.5 text-sm font-semibold text-background backdrop-blur-sm transition-colors hover:bg-foreground disabled:opacity-60"
               >
                 <ShoppingBag className="h-4 w-4" />
                 Quick add
@@ -133,13 +133,13 @@ export function ProductCard({
           className={cn("flex-1", outOfStock && "pointer-events-none")}
           onClick={outOfStock ? (e) => e.preventDefault() : undefined}
         >
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
             {product.category.name}
           </p>
           <h2
             className={cn(
-              "mt-1 line-clamp-2 text-sm font-semibold leading-snug text-slate-900",
-              !outOfStock && "transition-colors group-hover:text-blue-700"
+              "mt-1 line-clamp-2 text-sm font-semibold leading-snug text-foreground",
+              !outOfStock && "transition-colors group-hover:text-primary"
             )}
           >
             {product.name}
@@ -152,12 +152,12 @@ export function ProductCard({
               className="mt-2"
             />
           ) : null}
-          <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-500">
+          <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
             {product.description}
           </p>
         </Link>
 
-        <div className="mt-4 flex items-end justify-between gap-2 border-t border-slate-50 pt-3">
+        <div className="mt-4 flex items-end justify-between gap-2 border-t border-border/60 pt-3">
           <div>
             <ProductPrice
               price={product.price}
@@ -169,7 +169,7 @@ export function ProductCard({
             {!outOfStock ? (
               <p className="text-[11px] text-emerald-600">In stock</p>
             ) : (
-              <p className="text-[11px] text-slate-400">Unavailable</p>
+              <p className="text-[11px] text-muted-foreground">Unavailable</p>
             )}
           </div>
 
@@ -180,7 +180,7 @@ export function ProductCard({
                 type="button"
                 disabled={addToCartPending}
                 onClick={onAddToCart}
-                className="rounded-lg bg-blue-600 p-2 text-white disabled:opacity-60"
+                className="rounded-lg bg-primary p-2 text-primary-foreground disabled:opacity-60"
                 aria-label="Add to cart"
               >
                 <ShoppingBag className="h-4 w-4" />

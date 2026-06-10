@@ -107,7 +107,7 @@ export function AdminOrdersPage() {
                   render: (o) => (
                     <div>
                       <p>{o.user ? `${o.user.firstName} ${o.user.lastName}` : o.userId}</p>
-                      <p className="text-xs text-slate-500">{o.user?.email}</p>
+                      <p className="text-xs text-muted-foreground">{o.user?.email}</p>
                     </div>
                   )
                 },

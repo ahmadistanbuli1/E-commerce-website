@@ -37,7 +37,7 @@ export function ProductPrice({
 
   if (!onSale) {
     return (
-      <p className={cn("font-bold tracking-tight text-slate-900", currentSize, className)}>
+      <p className={cn("font-bold tracking-tight text-foreground", currentSize, className)}>
         ${price}
       </p>
     );
@@ -45,10 +45,12 @@ export function ProductPrice({
 
   return (
     <div className={cn("flex flex-wrap items-baseline gap-2", className)}>
-      <span className={cn("font-medium text-slate-400 line-through", oldSize)}>
+      <span className={cn("font-medium text-muted-foreground line-through", oldSize)}>
         ${compareAtPrice}
       </span>
-      <span className={cn("font-bold tracking-tight text-red-600", currentSize)}>${price}</span>
+      <span className={cn("font-bold tracking-tight text-red-500 dark:text-red-400", currentSize)}>
+        ${price}
+      </span>
       {showDiscountBadge && percent !== null ? (
         <span
           className={cn(
@@ -88,7 +90,7 @@ export function NewBadge({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "rounded-full bg-blue-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm",
+        "rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow-sm",
         className
       )}
     >

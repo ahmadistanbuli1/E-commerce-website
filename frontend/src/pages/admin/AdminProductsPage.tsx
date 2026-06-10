@@ -86,8 +86,8 @@ export function AdminProductsPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100">
-              <Plus className="h-5 w-5 text-blue-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light dark:bg-primary/15">
+              <Plus className="h-5 w-5 text-primary" />
             </div>
             <h2 className="heading-3">Create Product</h2>
           </div>
@@ -155,8 +155,8 @@ export function AdminProductsPage() {
 
         <Card>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100">
-              <Package className="h-5 w-5 text-violet-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 dark:bg-violet-500/15">
+              <Package className="h-5 w-5 text-violet-600 dark:text-violet-400" />
             </div>
             <h2 className="heading-3">Products List</h2>
           </div>
@@ -165,7 +165,7 @@ export function AdminProductsPage() {
               <div
                 key={p.id}
                 className={cn(
-                  "flex flex-col gap-3 rounded-xl border border-slate-100 bg-slate-50/50 p-3 transition-colors hover:bg-white sm:flex-row sm:items-center sm:justify-between",
+                  "flex flex-col gap-3 rounded-xl border border-border bg-muted/50 p-3 transition-colors hover:bg-card sm:flex-row sm:items-center sm:justify-between",
                   !p.isActive && "opacity-45"
                 )}
               >
@@ -174,19 +174,19 @@ export function AdminProductsPage() {
                     src={p.imageUrl}
                     alt={p.name}
                     className={cn(
-                      "h-12 w-12 shrink-0 rounded-lg object-cover ring-1 ring-slate-200",
+                      "h-12 w-12 shrink-0 rounded-lg object-cover ring-1 ring-border",
                       !p.isActive && "grayscale"
                     )}
                   />
                   <div className="min-w-0">
-                    <p className="truncate font-medium text-slate-800">
+                    <p className="truncate font-medium text-foreground">
                       {p.name}
                       {!p.isActive ? (
-                        <span className="ml-2 text-xs font-normal text-slate-400">(archived)</span>
+                        <span className="ml-2 text-xs font-normal text-muted-foreground">(archived)</span>
                       ) : null}
                     </p>
                     <p className="text-sm font-semibold text-blue-600">${p.price}</p>
-                    <p className="text-xs text-slate-500">Stock: {p.stock}</p>
+                    <p className="text-xs text-muted-foreground">Stock: {p.stock}</p>
                   </div>
                 </div>
                 <div className="flex shrink-0 flex-wrap gap-1.5">
@@ -200,7 +200,7 @@ export function AdminProductsPage() {
                       size="sm"
                       disabled={archiveProduct.isPending}
                       onClick={() => setArchiveTarget(p)}
-                      className="hover:border-amber-200 hover:bg-amber-50 hover:text-amber-700"
+                      className="hover:border-amber-500/30 hover:bg-amber-500/10 hover:text-amber-500 dark:hover:text-amber-400"
                     >
                       <Archive className="h-4 w-4" />
                       Archive
@@ -211,7 +211,7 @@ export function AdminProductsPage() {
                       size="sm"
                       disabled={restoreProduct.isPending}
                       onClick={() => setRestoreTarget(p)}
-                      className="hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700"
+                      className="hover:border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-500 dark:hover:text-emerald-400"
                     >
                       <RotateCcw className="h-4 w-4" />
                       Restore
@@ -221,7 +221,7 @@ export function AdminProductsPage() {
                     variant="outline"
                     size="sm"
                     onClick={() => setDeleteTarget(p)}
-                    className="hover:border-red-200 hover:bg-red-50 hover:text-red-600"
+                    className="hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-500"
                   >
                     <Trash2 className="h-4 w-4" />
                     Delete

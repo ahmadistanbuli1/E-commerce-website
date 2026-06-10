@@ -61,7 +61,7 @@ export function WishlistPage() {
           {items.map((it) => (
             <motion.div key={it.id} variants={fadeUp} whileHover={hoverLift} whileTap={tapPress}>
             <Card hover padding="none" className="overflow-hidden">
-              <div className="aspect-square overflow-hidden bg-slate-50">
+              <div className="aspect-square overflow-hidden bg-muted">
                 <motion.img
                   className="h-full w-full object-cover"
                   src={resolveImageUrl(it.product.imageUrl)}
@@ -71,11 +71,11 @@ export function WishlistPage() {
                 />
               </div>
               <div className="p-4">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   {it.product.category.name}
                 </p>
-                <h2 className="mt-1 font-semibold text-slate-900">{it.product.name}</h2>
-                <p className="mt-1 line-clamp-2 text-sm text-slate-500">{it.product.description}</p>
+                <h2 className="mt-1 font-semibold text-foreground">{it.product.name}</h2>
+                <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{it.product.description}</p>
                 <div className="mt-4 flex items-center justify-between gap-2">
                   <ProductPrice
                     price={it.product.price}

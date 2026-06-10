@@ -46,8 +46,8 @@ export function AdminCategoriesPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100">
-              <Plus className="h-5 w-5 text-blue-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light dark:bg-primary/15">
+              <Plus className="h-5 w-5 text-primary" />
             </div>
             <h2 className="heading-3">Create Category</h2>
           </div>
@@ -82,8 +82,8 @@ export function AdminCategoriesPage() {
 
         <Card>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
-              <FolderTree className="h-5 w-5 text-emerald-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15">
+              <FolderTree className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             </div>
             <h2 className="heading-3">Existing Categories</h2>
           </div>
@@ -91,11 +91,11 @@ export function AdminCategoriesPage() {
             {categories.map((c) => (
               <div
                 key={c.id}
-                className="flex items-start justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50/50 p-4 transition-colors hover:bg-white"
+                className="list-row flex items-start justify-between gap-3 p-4"
               >
                 <div className="min-w-0">
-                  <p className="font-semibold text-slate-800">{c.name}</p>
-                  <p className="mt-1 text-sm text-slate-500">{c.description}</p>
+                  <p className="font-semibold text-foreground">{c.name}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{c.description}</p>
                 </div>
                 <Button variant="outline" size="sm" className="shrink-0" onClick={() => openEdit(c)}>
                   <Pencil className="h-4 w-4" />

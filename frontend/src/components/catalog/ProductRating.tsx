@@ -32,18 +32,20 @@ export function ProductRating({
                 filled
                   ? "fill-amber-400 text-amber-400"
                   : half
-                    ? "fill-amber-200 text-amber-400"
-                    : "fill-slate-100 text-slate-200"
+                    ? "fill-amber-200 text-amber-400 dark:fill-amber-500/30"
+                    : "fill-muted text-border dark:fill-zinc-700 dark:text-zinc-600"
               )}
             />
           );
         })}
       </div>
-      <span className={cn("font-medium text-slate-700", size === "md" ? "text-sm" : "text-xs")}>
+      <span className={cn("font-medium text-foreground/80", size === "md" ? "text-sm" : "text-xs")}>
         {display}
       </span>
       {showCount && count !== undefined ? (
-        <span className={cn("text-slate-400", size === "md" ? "text-sm" : "text-xs")}>({count})</span>
+        <span className={cn("text-muted-foreground", size === "md" ? "text-sm" : "text-xs")}>
+          ({count})
+        </span>
       ) : null}
     </div>
   );
@@ -75,7 +77,9 @@ export function StarRatingInput({
             <Star
               className={cn(
                 "h-6 w-6",
-                active ? "fill-amber-400 text-amber-400" : "fill-slate-100 text-slate-300"
+                active
+                  ? "fill-amber-400 text-amber-400"
+                  : "fill-muted text-border dark:fill-zinc-700 dark:text-zinc-600"
               )}
             />
           </button>

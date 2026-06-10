@@ -44,7 +44,7 @@ export function CartDrawer() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm dark:bg-black/60" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-hidden">
@@ -60,16 +60,16 @@ export function CartDrawer() {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                  <div className="flex h-full flex-col bg-white shadow-2xl">
-                    <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+                  <div className="flex h-full flex-col bg-card text-card-foreground shadow-2xl dark:shadow-black/50">
+                    <div className="flex items-center justify-between border-b border-border px-5 py-4">
                       <div>
                         <Dialog.Title className="heading-3">Your cart</Dialog.Title>
-                        <p className="text-sm text-slate-500">{count} item(s)</p>
+                        <p className="text-sm text-muted-foreground">{count} item(s)</p>
                       </div>
                       <button
                         type="button"
                         onClick={close}
-                        className="rounded-xl border border-slate-200 p-2 text-slate-600 transition-colors hover:bg-slate-50"
+                        className="rounded-xl border border-border p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                         aria-label="Close"
                       >
                         <X className="h-4 w-4" />
@@ -101,10 +101,10 @@ export function CartDrawer() {
                           {cart.items.map((item) => (
                             <div
                               key={item.id}
-                              className="rounded-xl border border-slate-100 bg-slate-50/50 p-3"
+                              className="rounded-xl border border-border bg-muted/50 p-3"
                             >
                               <div className="flex gap-3">
-                                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-slate-100 ring-1 ring-slate-200">
+                                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-muted ring-1 ring-border">
                                   <ProductImage
                                     className="h-full w-full object-cover"
                                     src={item.product.imageUrl}
@@ -112,10 +112,10 @@ export function CartDrawer() {
                                   />
                                 </div>
                                 <div className="min-w-0 flex-1">
-                                  <p className="truncate text-sm font-semibold text-slate-900">
+                                  <p className="truncate text-sm font-semibold text-foreground">
                                     {item.product.name}
                                   </p>
-                                  <p className="text-xs text-slate-500">{item.product.category.name}</p>
+                                  <p className="text-xs text-muted-foreground">{item.product.category.name}</p>
                                   <div className="mt-2 flex items-center justify-between gap-2">
                                     <QuantityControl
                                       size="sm"
@@ -127,7 +127,7 @@ export function CartDrawer() {
                                     />
                                     <button
                                       type="button"
-                                      className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-500"
+                                      className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-red-500/10 hover:text-red-500"
                                       onClick={() => removeItem.mutate(item.id)}
                                       aria-label="Remove"
                                     >
@@ -138,8 +138,8 @@ export function CartDrawer() {
                               </div>
 
                               <div className="mt-2 flex items-center justify-between text-sm">
-                                <p className="text-slate-500">Unit: ${item.unitPrice}</p>
-                                <p className="font-semibold text-slate-900">${item.lineTotal}</p>
+                                <p className="text-muted-foreground">Unit: ${item.unitPrice}</p>
+                                <p className="font-semibold text-foreground">${item.lineTotal}</p>
                               </div>
                             </div>
                           ))}
@@ -147,10 +147,10 @@ export function CartDrawer() {
                       )}
                     </div>
 
-                    <div className="border-t border-slate-100 p-4">
+                    <div className="border-t border-border p-4">
                       <div className="flex items-center justify-between">
-                        <p className="text-sm text-slate-600">Subtotal</p>
-                        <p className="text-xl font-bold text-slate-900">${cart?.total ?? "0.00"}</p>
+                        <p className="text-sm text-muted-foreground">Subtotal</p>
+                        <p className="text-xl font-bold text-foreground">${cart?.total ?? "0.00"}</p>
                       </div>
 
                       <div className="mt-3 flex gap-2">

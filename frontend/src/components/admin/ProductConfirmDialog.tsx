@@ -36,7 +36,7 @@ export function ProductArchiveDialog({
         </>
       }
     >
-      <p className="text-sm text-slate-600">
+      <p className="text-sm text-muted-foreground">
         Archived products appear faded in the admin list. Use the Restore button to make them visible
         again in the store.
       </p>
@@ -76,7 +76,7 @@ export function ProductRestoreDialog({
         </>
       }
     >
-      <p className="text-sm text-slate-600">
+      <p className="text-sm text-muted-foreground">
         This will un-archive the product and make it available for customers to browse and purchase.
       </p>
     </AdminDialog>

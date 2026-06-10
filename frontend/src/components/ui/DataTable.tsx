@@ -19,25 +19,25 @@ export function DataTable<T>({
   onSort?: (key: string) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
+    <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-slate-100 bg-slate-50/80">
+            <tr className="border-b border-border bg-muted/80">
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-slate-500"
+                  className="px-5 py-3.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                 >
                   {col.sortValue && onSort ? (
                     <button
                       type="button"
                       onClick={() => onSort(col.key)}
-                      className="inline-flex items-center gap-1 transition-colors duration-150 hover:text-blue-600"
+                      className="inline-flex items-center gap-1 transition-colors duration-150 hover:text-primary"
                     >
                       {col.header}
                       {sortKey === col.key ? (
-                        <span className="text-blue-600">{sortDir === "asc" ? "↑" : "↓"}</span>
+                        <span className="text-primary">{sortDir === "asc" ? "↑" : "↓"}</span>
                       ) : null}
                     </button>
                   ) : (
@@ -50,7 +50,7 @@ export function DataTable<T>({
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="px-5 py-12 text-center text-slate-500">
+                <td colSpan={columns.length} className="px-5 py-12 text-center text-muted-foreground">
                   No data found.
                 </td>
               </tr>
@@ -58,10 +58,10 @@ export function DataTable<T>({
               rows.map((row, idx) => (
                 <tr
                   key={idx}
-                  className="border-b border-slate-50 transition-colors duration-150 last:border-0 hover:bg-slate-50/50"
+                  className="border-b border-border/60 transition-colors duration-150 last:border-0 hover:bg-muted/40"
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className="px-5 py-4 text-slate-700">
+                    <td key={col.key} className="px-5 py-4 text-foreground/80">
                       {col.render(row)}
                     </td>
                   ))}

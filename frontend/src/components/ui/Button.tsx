@@ -6,11 +6,11 @@ type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-blue-600 text-white shadow-md shadow-blue-600/20 hover:bg-blue-700 focus:ring-blue-500",
+    "bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary-hover focus:ring-ring dark:shadow-primary/30",
   outline:
-    "border border-slate-200 bg-white text-slate-800 shadow-sm hover:bg-slate-50 focus:ring-blue-500",
-  ghost: "text-slate-700 hover:bg-slate-100 focus:ring-slate-400",
-  danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500"
+    "border border-border bg-card text-foreground shadow-sm hover:bg-muted focus:ring-ring dark:hover:bg-muted/80",
+  ghost: "text-foreground/80 hover:bg-muted focus:ring-ring/40",
+  danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 dark:bg-red-600 dark:hover:bg-red-500"
 };
 
 const sizes: Record<Size, string> = {
@@ -35,7 +35,7 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60",
+        "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60 dark:focus:ring-offset-zinc-950",
         variants[variant],
         sizes[size],
         fullWidth && "w-full",

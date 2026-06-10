@@ -1,5 +1,5 @@
 import cors from "cors";
-import { env } from "../config/env";
+import { isAllowedCorsOrigin } from "../config/env";
 
 export const corsMiddleware = cors({
   origin(origin, callback) {
@@ -8,7 +8,7 @@ export const corsMiddleware = cors({
       return;
     }
 
-    if (env.corsOrigins.includes(origin)) {
+    if (isAllowedCorsOrigin(origin)) {
       callback(null, true);
       return;
     }

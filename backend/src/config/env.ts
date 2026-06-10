@@ -71,11 +71,30 @@ const envSchema = z
 
 const parsed = envSchema.parse(process.env);
 
+function normalizeOrigin(origin: string) {
+  return origin.trim().replace(/\/+$/, "");
+}
+
 export const env = {
   ...parsed,
   corsOrigins: parsed.CORS_ORIGIN.split(",")
-    .map((origin) => origin.trim())
+    .map(normalizeOrigin)
     .filter(Boolean),
   isProduction: parsed.NODE_ENV === "production",
   isDevelopment: parsed.NODE_ENV === "development"
 };
+
+export function isAllowedCorsOrigin(origin: string) {
+  const normalized = normalizeOrigin(origin);
+
+  if (env.corsOrigins.includes(normalized)) {
+    return true;
+  }
+
+  // Demo-friendly: allow any Vercel deployment subdomain over HTTPS.
+  if (env.isProduction && /^https:\/\/[\w.-]+\.vercel\.app$/.test(normalized)) {
+    return true;
+  }
+
+  return false;
+}

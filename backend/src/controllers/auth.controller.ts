@@ -9,7 +9,7 @@ import { activityActorFromRequest } from "../utils/request-context";
 import { clearSessionCookies, setSessionCookies } from "../utils/auth-cookies";
 import { signAccessToken } from "../utils/auth";
 import { baseCookieOptions } from "../utils/cookie-options";
-import { generateCsrfToken } from "../utils/csrf";
+import { createCsrfToken } from "../utils/csrf";
 import { REFRESH_TOKEN_MAX_AGE_MS } from "../config/auth";
 
 const emptyMsg = "This field is required";
@@ -121,7 +121,7 @@ export class AuthController {
       return res.json({ csrfToken: null });
     }
 
-    const csrfToken = generateCsrfToken();
+    const csrfToken = createCsrfToken();
     res.cookie(env.CSRF_COOKIE_NAME, csrfToken, baseCookieOptions(REFRESH_TOKEN_MAX_AGE_MS));
 
     return res.json({ csrfToken });

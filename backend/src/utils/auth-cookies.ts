@@ -2,13 +2,13 @@ import type { Response } from "express";
 import { ACCESS_TOKEN_MAX_AGE_MS, REFRESH_TOKEN_MAX_AGE_MS } from "../config/auth";
 import { env } from "../config/env";
 import { baseCookieOptions, clearCookieOptions, httpOnlyCookieOptions } from "./cookie-options";
-import { generateCsrfToken } from "./csrf";
+import { createCsrfToken } from "./csrf";
 
 export function setSessionCookies(
   res: Response,
   input: { accessToken: string; refreshToken: string; csrfToken?: string }
 ) {
-  const csrfToken = input.csrfToken ?? generateCsrfToken();
+  const csrfToken = input.csrfToken ?? createCsrfToken();
 
   res.cookie(env.COOKIE_NAME, input.accessToken, httpOnlyCookieOptions(ACCESS_TOKEN_MAX_AGE_MS));
   res.cookie(

@@ -31,6 +31,14 @@ function captureCsrfFromResponse(data: unknown) {
   }
 }
 
+export async function bootstrapCsrfToken() {
+  const { data } = await api.get<{ csrfToken: string | null }>("/auth/csrf");
+  if (data.csrfToken) {
+    setCsrfToken(data.csrfToken);
+  }
+  return data.csrfToken;
+}
+
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   if (isMutatingMethod(config.method)) {
     const csrfToken = getCsrfToken();
@@ -67,12 +75,17 @@ api.interceptors.response.use(
     const url: string = error.config?.url ?? "";
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-    if (status === 403 && originalRequest && !originalRequest._retry && error.response?.data?.message === "Invalid CSRF token") {
+    if (
+      status === 403 &&
+      originalRequest &&
+      !originalRequest._retry &&
+      error.response?.data?.message === "Invalid CSRF token"
+    ) {
       originalRequest._retry = true;
       try {
-        const { data } = await api.get<{ csrfToken: string | null }>("/auth/csrf");
-        if (data.csrfToken) {
-          setCsrfToken(data.csrfToken);
+        await refreshSession();
+        await bootstrapCsrfToken();
+        if (getCsrfToken()) {
           return api(originalRequest);
         }
       } catch {

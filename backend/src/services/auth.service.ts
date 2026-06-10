@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../config/prisma";
+import { RefreshTokenService } from "./refresh-token.service";
 import { signAccessToken } from "../utils/auth";
 
 type RegisterInput = {
@@ -8,6 +9,19 @@ type RegisterInput = {
   email: string;
   password: string;
 };
+
+const userSelect = {
+  id: true,
+  firstName: true,
+  lastName: true,
+  email: true,
+  phone: true,
+  role: true,
+  isBanned: true,
+  deletedAt: true,
+  createdAt: true,
+  updatedAt: true
+} as const;
 
 export class AuthService {
   static async register(input: RegisterInput) {
@@ -28,54 +42,34 @@ export class AuthService {
         isBanned: false,
         deletedAt: null
       },
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        email: true,
-        phone: true,
-        role: true,
-        isBanned: true,
-        deletedAt: true,
-        createdAt: true,
-        updatedAt: true
-      }
+      select: userSelect
     });
 
-    const token = signAccessToken({ sub: user.id, role: user.role });
-    return { ok: true as const, user, token };
+    const accessToken = signAccessToken({ sub: user.id, role: user.role });
+    const refreshToken = await RefreshTokenService.issue(user.id);
+
+    return { ok: true as const, user, accessToken, refreshToken };
   }
 
   static async login(email: string, password: string) {
     const userWithPassword = await prisma.user.findUnique({ where: { email } });
     if (!userWithPassword) return { ok: false as const, message: "Invalid credentials" };
     if (userWithPassword.deletedAt) return { ok: false as const, message: "Invalid credentials" };
-    const banned = (userWithPassword as unknown as { isBanned?: boolean }).isBanned;
-    if (banned) return { ok: false as const, message: "Invalid credentials" };
+    if (userWithPassword.isBanned) return { ok: false as const, message: "Invalid credentials" };
 
     const ok = await bcrypt.compare(password, userWithPassword.password);
     if (!ok) return { ok: false as const, message: "Invalid credentials" };
 
     const user = await prisma.user.findUnique({
       where: { id: userWithPassword.id },
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        email: true,
-        phone: true,
-        role: true,
-        isBanned: true,
-        deletedAt: true,
-        createdAt: true,
-        updatedAt: true
-      }
+      select: userSelect
     });
 
     if (!user) return { ok: false as const, message: "Invalid credentials" };
 
-    const token = signAccessToken({ sub: user.id, role: user.role });
-    return { ok: true as const, user, token };
+    const accessToken = signAccessToken({ sub: user.id, role: user.role });
+    const refreshToken = await RefreshTokenService.issue(user.id);
+
+    return { ok: true as const, user, accessToken, refreshToken };
   }
 }
-

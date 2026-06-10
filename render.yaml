@@ -26,9 +26,8 @@ services:
         value: none
       - key: TRUST_PROXY
         value: "true"
-      # Set after deploying the Vercel frontend:
       - key: CORS_ORIGIN
-        sync: false
+        value: https://e-commerce-website-sigma-lake.vercel.app
 
 databases:
   - name: ecommerce-db

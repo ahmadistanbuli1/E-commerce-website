@@ -16,6 +16,8 @@ const envSchema = z
     PORT: z.coerce.number().int().positive().default(4000),
     CORS_ORIGIN: z.string().min(1).default("http://localhost:5173"),
     COOKIE_NAME: z.string().min(1).default("access_token"),
+    REFRESH_COOKIE_NAME: z.string().min(1).default("refresh_token"),
+    CSRF_COOKIE_NAME: z.string().min(1).default("csrf_token"),
     COOKIE_SECURE: z.coerce.boolean().default(false),
     COOKIE_SAMESITE: z.enum(["lax", "strict", "none"]).default("lax"),
     TRUST_PROXY: z.coerce.boolean().default(false),
@@ -86,15 +88,5 @@ export const env = {
 
 export function isAllowedCorsOrigin(origin: string) {
   const normalized = normalizeOrigin(origin);
-
-  if (env.corsOrigins.includes(normalized)) {
-    return true;
-  }
-
-  // Demo-friendly: allow any Vercel deployment subdomain over HTTPS.
-  if (env.isProduction && /^https:\/\/[\w.-]+\.vercel\.app$/.test(normalized)) {
-    return true;
-  }
-
-  return false;
+  return env.corsOrigins.includes(normalized);
 }

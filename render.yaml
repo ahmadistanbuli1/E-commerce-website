@@ -1,0 +1,35 @@
+# Render Blueprint — optional; you can also configure manually in the dashboard.
+# Docs: https://render.com/docs/infrastructure-as-code
+
+services:
+  - type: web
+    name: ecommerce-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm run render:build
+    startCommand: npm run start:prod
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ecommerce-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 4000
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: COOKIE_SAMESITE
+        value: none
+      - key: TRUST_PROXY
+        value: "true"
+      # Set after deploying the Vercel frontend:
+      - key: CORS_ORIGIN
+        sync: false
+
+databases:
+  - name: ecommerce-db
+    plan: free

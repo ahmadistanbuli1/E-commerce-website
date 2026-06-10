@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 import { z } from "zod";
 
 import { env } from "../config/env";
+import { ACCESS_TOKEN_MAX_AGE_MS } from "../config/auth";
 
 import { AuthService } from "../services/auth.service";
 
@@ -103,6 +104,8 @@ function setAuthCookie(res: Response, token: string) {
     sameSite: env.COOKIE_SAMESITE,
 
     path: "/",
+
+    maxAge: ACCESS_TOKEN_MAX_AGE_MS,
 
   });
 
